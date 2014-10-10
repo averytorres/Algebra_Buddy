@@ -34,7 +34,7 @@ public class BinaryAdder {
 				}
 			}
 		} else {
-			result.append("0");
+			insertZeroIntoResult(result);;
 		}
 
 		return Integer.valueOf(result.toString());
