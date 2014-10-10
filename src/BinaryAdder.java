@@ -14,10 +14,10 @@ public class BinaryAdder {
 		String longerBinaryNum = String.valueOf(Integer.max(num1, num2));
 		String shorterBinaryNum = String.valueOf(Integer.min(num1, num2));
 		StringBuilder result = new StringBuilder();
-		boolean carry = false;
 		final int DIFF = longerBinaryNum.length() - shorterBinaryNum.length();
 		final int NUMBER_LENGTH = String.valueOf(longerBinaryNum).length();
 		boolean NumberIsNotZero = Integer.valueOf(longerBinaryNum) > 0;
+		boolean carry = false;
 
 		shorterBinaryNum = lengthen(shorterBinaryNum, DIFF);
 
