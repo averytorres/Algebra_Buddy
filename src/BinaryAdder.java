@@ -121,5 +121,4 @@ public class BinaryAdder {
 		result.insert(0, "0");
 	}
 
-
 }
