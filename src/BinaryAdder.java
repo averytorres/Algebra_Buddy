@@ -13,37 +13,78 @@ public class BinaryAdder {
 
 		String longerBinaryNum = String.valueOf(Integer.max(num1, num2));
 		String shorterBinaryNum = String.valueOf(Integer.min(num1, num2));
-		String result = "";
+		StringBuilder result = new StringBuilder();
+		boolean carry = false;
+		int diff = longerBinaryNum.length() - shorterBinaryNum
+				.length();
+		
+		for (int i = 0; i < diff; i++) {
+			shorterBinaryNum = "0" + shorterBinaryNum;
+		}
 
 		if (Integer.valueOf(longerBinaryNum) > 0) {
 			for (int i = 0; i < String.valueOf(longerBinaryNum).length(); i++) {
 				if (longerBinaryNum.charAt(longerBinaryNum.length() - (i + 1)) == '0') {
 					if (shorterBinaryNum.charAt(shorterBinaryNum.length()
 							- (i + 1)) == '0') {
-						System.out.println("bother are 0");
+						// bother are 0
+						if (!carry)
+							result.insert(0, "0");
+						else {
+							result.insert(0, "1");
+							carry = false;
+						}
 					} else {
-						System.out.println("longer is 0 shorter is 1");
+						// longer is 0 shorter is 1
+						if (!carry)
+							result.insert(0, "1");
+						else {
+							result.insert(0, "0");
+							carry = true;
+							if (i == longerBinaryNum.length() - 1) {
+								result.insert(0, "1");
+							}
+						}
+
 					}
-				}
-				else{
+				} else {
 					if (shorterBinaryNum.charAt(shorterBinaryNum.length()
 							- (i + 1)) == '0') {
-						System.out.println("longer is 1 shorter is 0");
+						// longer is 1 shorter is 0
+						if (!carry)
+							result.insert(0, "1");
+						else {
+							result.insert(0, "0");
+							carry = true;
+							if (i == longerBinaryNum.length() - 1) {
+								result.insert(0, "1");
+							}
+						}
 					} else {
-						System.out.println("both are 1");
+						// both are 1
+						if(carry)
+							result.insert(0, "1");
+						else
+							result.insert(0, "0");
+						
+						carry = true;
+						if (i == longerBinaryNum.length() - 1) {
+							result.insert(0, "1");
+						}
 					}
 				}
 			}
 		} else {
-			result = "0";
+			result.append("0");
 		}
 
-		return Integer.valueOf(result);
+		return Integer.valueOf(result.toString());
 	}
 
 	public static void main(String[] args) {
-		BinaryAdder b = new BinaryAdder(1111100, 11111);
-		b.add();
+		// BinaryAdder b = new BinaryAdder(11100, 1010);
+		BinaryAdder b = new BinaryAdder(11111111, 000);
+		System.out.println(b.add());
 	}
 
-}
+}//0111111110
