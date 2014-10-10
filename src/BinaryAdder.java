@@ -23,9 +23,9 @@ public class BinaryAdder {
 
 		if (NumberIsNotZero) {
 			for (int i = 0; i < NUMBER_LENGTH; i++) {
-				boolean currentLongerPositionValueIsOne = longerBinaryNum
+				boolean currentLongerPositionValueIsZero = longerBinaryNum
 						.charAt(longerBinaryNum.length() - (i + 1)) == '0';
-				if (currentLongerPositionValueIsOne) {
+				if (currentLongerPositionValueIsZero) {
 					carry = compareToZero(longerBinaryNum, shorterBinaryNum,
 							result, carry, i);
 				} else {
@@ -74,9 +74,9 @@ public class BinaryAdder {
 			insertZeroIntoResult(result);
 
 		carry = true;
-		if (i == longerBinaryNum.length() - 1) {
-			insertOneIntoResult(result);
-		}
+		
+		checkIfLastNumber(longerBinaryNum, result, i);
+		
 		return carry;
 	}
 
@@ -88,9 +88,7 @@ public class BinaryAdder {
 		else {
 			insertZeroIntoResult(result);
 			carry = true;
-			if (i == longerBinaryNum.length() - 1) {
-				insertOneIntoResult(result);
-			}
+			checkIfLastNumber(longerBinaryNum, result, i);
 		}
 		return carry;
 	}
@@ -120,5 +118,11 @@ public class BinaryAdder {
 	private void insertZeroIntoResult(StringBuilder result) {
 		result.insert(0, "0");
 	}
-
+	
+	private void checkIfLastNumber(String longerBinaryNum,
+			StringBuilder result, int i) {
+		if (i == longerBinaryNum.length() - 1) {
+			insertOneIntoResult(result);
+		}
+	}
 }
