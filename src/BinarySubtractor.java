@@ -22,7 +22,6 @@ public class BinarySubtractor {
 		String shorterNum = String.valueOf(Integer.min(num1, num2));
 		Boolean firstNumberGreater;
 		final int DIFF = longerNum.length() - shorterNum.length();
-		BinaryAdder adder;
 		shorterNum = lengthen(shorterNum, DIFF);
 		int result;
 		boolean longerIsNum2 = Integer.valueOf(longerNum) == num2;
@@ -32,24 +31,26 @@ public class BinarySubtractor {
 		if (longerIsNum2) {
 
 			longerNum = computeTwosComplement(num2 + "", shorterNum);
-			System.out.println("Twos complement: " + longerNum);
+			System.out.println("TWOS: " + longerNum);
+
 		} else {
 
 			shorterNum = computeTwosComplement(num2 + "", longerNum);
-			System.out.println("Twos complement: " + longerNum);
+			System.out.println("TWOS: " + shorterNum);
+
 		}
 
 		if (longerIsNum2) {
 			result = addValues(shorterNum, longerNum);
 			result = removeLeadingNumber(result);
-			if (firstNumberGreater)
+			if (!firstNumberGreater)
 				result = -1 * result;
 
 		} else {
 
 			result = addValues(longerNum, shorterNum);
 			result = removeLeadingNumber(result);
-			if (firstNumberGreater)
+			if (!firstNumberGreater)
 				result = -1 * result;
 
 		}
@@ -59,26 +60,26 @@ public class BinarySubtractor {
 
 	private int removeLeadingNumber(int result) {
 		String temp = result + "";
-		if (temp.length() <= 1) {
+		if (temp.length() <= 1 && temp.charAt(0) != '1') {
 			result = 0;
 		} else {
-			result = Integer.valueOf(temp.substring(1));
+			if(temp.length() == 1 && temp.charAt(0) == '1')
+				result = 1;
+				else
+				result = Integer.valueOf(temp.substring(1));
 		}
 		return result;
 	}
 
 	private int addValues(String val1, String val2) {
-		BinaryAdder adder;
+
 		int result;
-		adder = new BinaryAdder(Integer.valueOf(val1.replaceFirst("^0+(?!$)",
-				"")), Integer.valueOf(val2.replaceFirst("^0+(?!$)", "")));
-		result = adder.add();
+		result = Integer.valueOf(cleanNumberThenAdd(val1, val2));
 		return result;
 	}
 
 	private String computeTwosComplement(String toConvert, String firstNum) {
 		String temp = "";
-		BinaryAdder add;
 
 		toConvert = lengthenToConvert(toConvert, firstNum);
 
@@ -89,36 +90,30 @@ public class BinarySubtractor {
 				temp = temp + "0";
 		}
 
-		toConvert = addOneToValue(temp);
-
+		toConvert = cleanNumberThenAdd(temp, 1 + "");
 		toConvert = lengthenToConvert(toConvert, firstNum);
+
 		return toConvert;
 	}
 
-	private String addOneToValue(String temp) {
-		String toConvert;
+	private String cleanNumberThenAdd(String temp1, String temp2) {
 		BinaryAdder add;
-		if (String.valueOf(temp).charAt(0) == '0') {
 
-			temp = temp.replaceFirst("^0+(?!$)", "");
-			if(temp.equals("")){
-				add = new BinaryAdder(0, 1);
+		if (temp1.charAt(0) == '0') {
+			temp1 = temp1.replaceFirst("^0+(?!$)", "");
+			if (temp2.charAt(0) == '0') {
+				temp2 = temp2.replaceFirst("^0+(?!$)", "");
 			}
-			else{
-				add = new BinaryAdder(Integer.valueOf(temp), 1);
-			}
-			
-			toConvert = add.add() + "";
 		} else {
-			add = new BinaryAdder(Integer.valueOf(temp), 1);
-			toConvert = add.add() + "";
+			if (temp2.charAt(0) == '0') {
+				temp2 = temp2.replaceFirst("^0+(?!$)", "");
+			}
 		}
-		return toConvert;
+		add = new BinaryAdder(Integer.valueOf(temp1), Integer.valueOf(temp2));
+		return add.add() + "";
 	}
 
 	private String lengthenToConvert(String toConvert, String firstNum) {
-		System.out.println(toConvert.length());
-		System.out.println(firstNum.length());
 		if (toConvert.length() < firstNum.length()) {
 			toConvert = lengthen(toConvert,
 					firstNum.length() - toConvert.length());
@@ -151,10 +146,10 @@ public class BinarySubtractor {
 
 		}
 
-		if (tempNum1 <= tempNum2)
-			return true;
-		else
+		if (tempNum1 < tempNum2)
 			return false;
+		else
+			return true;
 	}
 
 	private double getDecimalValue(String inNum, int i) {
@@ -171,7 +166,7 @@ public class BinarySubtractor {
 	}
 
 	public static void main(String[] args) {
-		BinarySubtractor s = new BinarySubtractor(110, 11111);
+		BinarySubtractor s = new BinarySubtractor(0, 1);
 		System.out.println("Result: " + s.subtract());
 	}
 }
