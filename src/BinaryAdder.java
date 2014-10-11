@@ -1,3 +1,12 @@
+/*
+ * 
+ * THIS ENGINE ASSUMES THE NUMBER IS COMPLETELY CLEAN BEFORE BEING ENTERED
+ * ENSURE THAT THERE ARE NO LEADING 0's IN THE ORIGINAL PASSED IN INTS AS
+ * JAVA WILL TREAT THEM AS OCTAL NUMBERS, ALSO ENSURE THAT THEY ARE ACTUAL BINARY
+ * NUMBERS AND CONTAIN ONLY 1'S AND 0'S
+ * 
+ */
+
 public class BinaryAdder {
 
 	private int num1;
@@ -34,7 +43,8 @@ public class BinaryAdder {
 				}
 			}
 		} else {
-			insertZeroIntoResult(result);;
+			insertZeroIntoResult(result);
+			;
 		}
 
 		return Integer.valueOf(result.toString());
@@ -56,7 +66,8 @@ public class BinaryAdder {
 
 	private boolean compareToZero(String longerBinaryNum,
 			String shorterBinaryNum, StringBuilder result, boolean carry, int i) {
-		boolean currentShorterPositionValueIsZero = shorterBinaryNum.charAt(shorterBinaryNum.length() - (i + 1)) == '0';
+		boolean currentShorterPositionValueIsZero = shorterBinaryNum
+				.charAt(shorterBinaryNum.length() - (i + 1)) == '0';
 		if (currentShorterPositionValueIsZero) {
 			carry = bothPositionsAreZero(result, carry);
 		} else {
@@ -74,9 +85,9 @@ public class BinaryAdder {
 			insertZeroIntoResult(result);
 
 		carry = true;
-		
+
 		checkIfLastNumber(longerBinaryNum, result, i);
-		
+
 		return carry;
 	}
 
@@ -118,7 +129,7 @@ public class BinaryAdder {
 	private void insertZeroIntoResult(StringBuilder result) {
 		result.insert(0, "0");
 	}
-	
+
 	private void checkIfLastNumber(String longerBinaryNum,
 			StringBuilder result, int i) {
 		if (i == longerBinaryNum.length() - 1) {
