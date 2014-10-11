@@ -31,12 +31,10 @@ public class BinarySubtractor {
 		if (longerIsNum2) {
 
 			longerNum = computeTwosComplement(num2 + "", shorterNum);
-			System.out.println("TWOS: " + longerNum);
 
 		} else {
 
 			shorterNum = computeTwosComplement(num2 + "", longerNum);
-			System.out.println("TWOS: " + shorterNum);
 
 		}
 
@@ -63,9 +61,9 @@ public class BinarySubtractor {
 		if (temp.length() <= 1 && temp.charAt(0) != '1') {
 			result = 0;
 		} else {
-			if(temp.length() == 1 && temp.charAt(0) == '1')
+			if (temp.length() == 1 && temp.charAt(0) == '1')
 				result = 1;
-				else
+			else
 				result = Integer.valueOf(temp.substring(1));
 		}
 		return result;
@@ -166,7 +164,7 @@ public class BinarySubtractor {
 	}
 
 	public static void main(String[] args) {
-		BinarySubtractor s = new BinarySubtractor(0, 1);
+		BinarySubtractor s = new BinarySubtractor(11, 11110);
 		System.out.println("Result: " + s.subtract());
 	}
 }
