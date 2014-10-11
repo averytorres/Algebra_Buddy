@@ -6,3 +6,5 @@ Eventually this project will become a suite to help students with basic algebra 
 ####Current Features
 - Binary Adder Engine
 	+ Allows students to add any binary numbers together
+- Binary Subtractor Engine
+	+ Allows students to subtract any binary numbers together
